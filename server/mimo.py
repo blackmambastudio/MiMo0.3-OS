@@ -25,13 +25,13 @@ def serial_read(json_data, methods=['GET', 'POST']):
     """
     print('Connected from {0}'.format(json_data))
     response = {'message': 'Connected to serial'}
-    socketio.emit('serial', response, callback=serial_read)
+    socketio.emit('serial', response, callback=handle_serial)
 
     # Test if WS is working
     data = {'type': 'serial_input', 'data': 'Hello from serial'}
     # TODO: Implement serial read here
     while True:
-        socketio.emit('serial', data, callback=serial_read)
+        socketio.emit('serial', data, callback=handle_serial)
 
         # Sleep for 10 seconds
         time.sleep(10)

@@ -14,19 +14,19 @@
 	<script type="text/javascript">
 		var domain = document.domain;
 		var port = location.port;
-		var socket = io.connect(`http://{domain}:{port}`);
+		var socket = io.connect('http://' + domain + ':' + port);
 
 		socket.on('connect', function() {
 			socket.emit('connect2pi', {
 				data: 'Let me in...'
 			});
-		}):
+		});
 
 		socket.on('serial', function(response) {
 			console.log(response);
 			if (typeof response.type !== 'undefined') {
-				document.querySelector('.content > h3').innerText = 'Connected':
-				document.querySelector('.content > p').innerText = `Pi says {response.message} from {response.type}`;
+				document.querySelector('.content > h3').innerText = 'Connected';
+				document.querySelector('.content > p').innerText = 'Pi says ' + response.data+ ' from ' + response.type;
 			}
 		});
 	</script>
