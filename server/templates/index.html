@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MiMo Client</title>
+</head>
+<body>
+	<div class="wrapper">
+		<section class="content">
+			<h3>Connecting...</h2>
+			<p></p>
+		</section>		
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+	<script type="text/javascript">
+		var domain = document.domain;
+		var port = location.port;
+		var socket = io.connect(`http://{domain}:{port}`);
+
+		socket.on('connect', function() {
+			socket.emit('connect2pi', {
+				data: 'Let me in...'
+			});
+		}):
+
+		socket.on('serial', function(message) {
+			console.log(message);
+		});
+	</script>
+</body>
+</html>
