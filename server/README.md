@@ -10,3 +10,4 @@ Pyhton >= 2.7.10
 
 ### Run server
 python mimo.py
+go to http://127.0.0.1:5000/ in your browser
