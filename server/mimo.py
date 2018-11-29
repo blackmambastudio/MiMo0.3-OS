@@ -10,7 +10,7 @@ socketio = SocketIO(app)
 
 @app.route('/')
 def index():
-    render_template('index.html')
+    return render_template('index.html')
 
 
 def handle_serial(methods=['GET', 'POST']):
