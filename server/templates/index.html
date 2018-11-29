@@ -22,8 +22,12 @@
 			});
 		}):
 
-		socket.on('serial', function(message) {
-			console.log(message);
+		socket.on('serial', function(response) {
+			console.log(response);
+			if (typeof response.type !== 'undefined') {
+				document.querySelector('.content > h3').innerText = 'Connected':
+				document.querySelector('.content > p').innerText = `Pi says {response.message} from {response.type}`;
+			}
 		});
 	</script>
 </body>
