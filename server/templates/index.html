@@ -7,7 +7,7 @@
 	<div class="wrapper">
 		<section class="content">
 			<h3>Connecting...</h2>
-			<p></p>
+			<div class='data'></div>
 		</section>		
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
@@ -26,7 +26,9 @@
 			console.log(response);
 			if (typeof response.type !== 'undefined') {
 				document.querySelector('.content > h3').innerText = 'Connected';
-				document.querySelector('.content > p').innerText = 'Pi says ' + response.data+ ' from ' + response.type;
+				var data = document.createElement('p');
+				data.innerText = 'Pi says ' + response.data+ ' from ' + response.type;
+				document.querySelector('.content > .data').appendChild(data);
 			}
 		});
 	</script>
