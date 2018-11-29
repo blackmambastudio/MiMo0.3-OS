@@ -29,18 +29,13 @@ def serial_read(json_data, methods=['GET', 'POST']):
 
     # Test if WS is working
     data = {'type': 'serial_input', 'data': 'Hello from serial'}
+    # TODO: Implement serial read here
     while True:
         socketio.emit('serial', data, callback=serial_read)
+
         # Sleep for 10 seconds
         time.sleep(10)
 
 
-
-
-
-
-
-
-
-
-
+if __name__ == '__main__':
+    socketio.run(app, host='0.0.0.0', debug=True)
