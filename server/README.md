@@ -1,10 +1,10 @@
 
 # MiMo Server
 
-#### Requirements
+### Requirements
 Pyhton >= 2.7.10
 
-#### Install
+### Install
 1. cd server
 2. pip install -r requirements.txt
 
