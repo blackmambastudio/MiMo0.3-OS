@@ -104,7 +104,7 @@ while True:
     setup()
     cable = {
             'user': 'MiMo Console',
-            'date': 'Nov 30 2018',
+            'date': 'Oct 30  1982',
             'text': 'I saw the best minds of my generation destroyed by madness...'
     }
     print_data(cable)
