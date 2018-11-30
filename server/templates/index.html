@@ -41,27 +41,6 @@
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 	<script type="text/javascript">
-		var domain = document.domain;
-		var port = location.port;
-		var socket = io.connect('http://' + domain + ':' + port);
-
-		socket.on('connect', function() {
-			socket.emit('connect2pi', {
-				data: 'Let me in...'
-			});
-		});
-
-		socket.on('serial', function(response) {
-			console.log(response);
-			if (typeof response.type !== 'undefined') {
-				document.querySelector('.content > h3').innerText = 'Connected';
-				var data = document.createElement('p');
-				data.innerText = 'Pi says ' + response.data+ ' from ' + response.type;
-				document.querySelector('.content > .data').appendChild(data);
-			}
-		});
-	</script>
-	<script type="text/javascript">
 		var canvas = document.getElementById("maze");
 		var context = canvas.getContext("2d");
 		context.globalCompositeOperation = 'screen';
@@ -310,6 +289,27 @@
 		    document.getElementById("win").className = "";
 		  }
 		}
+
+		// WebSocket Setup
+		var domain = document.domain;
+		var port = location.port;
+		var socket = io.connect('http://' + domain + ':' + port);
+
+		socket.on('connect', function() {
+			socket.emit('connect2pi', {
+				data: 'Let me in...'
+			});
+		});
+
+		socket.on('serial', function(response) {
+			console.log(response);
+			if (typeof response.type !== 'undefined') {
+				document.querySelector('.content > h3').innerText = 'Connected';
+				var data = document.createElement('p');
+				data.innerText = 'Pi says ' + response.data+ ' from ' + response.type;
+				document.querySelector('.content > .data').appendChild(data);
+			}
+		});
 	</script>
 </body>
 </html>
