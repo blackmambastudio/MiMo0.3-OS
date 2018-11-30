@@ -2,7 +2,7 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO
 import time
 from mimo.core import mimo_button
-from mimo.mimoSerial import *
+# from mimo.mimoSerial import *
 from mimo.mimoPrinter import mimo_print, mimo_setup, mimo_init
 import RPi.GPIO as GPIO
 
@@ -48,18 +48,18 @@ def map(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
 
-def setColor(col):   # For example : col = 0x112233
-    R_val = (col & 0x110000) >> 16
-    G_val = (col & 0x001100) >> 8
-    B_val = (col & 0x000011) >> 0
+# def setColor(col):   # For example : col = 0x112233
+#     R_val = (col & 0x110000) >> 16
+#     G_val = (col & 0x001100) >> 8
+#     B_val = (col & 0x000011) >> 0
 
-    R_val = map(R_val, 0, 255, 0, 100)
-    G_val = map(G_val, 0, 255, 0, 100)
-    B_val = map(B_val, 0, 255, 0, 100)
+#     R_val = map(R_val, 0, 255, 0, 100)
+#     G_val = map(G_val, 0, 255, 0, 100)
+#     B_val = map(B_val, 0, 255, 0, 100)
 
-    p_R.ChangeDutyCycle(100-R_val)     # Change duty cycle
-    p_G.ChangeDutyCycle(100-G_val)
-    p_B.ChangeDutyCycle(100-B_val)
+#     p_R.ChangeDutyCycle(100-R_val)     # Change duty cycle
+#     p_G.ChangeDutyCycle(100-G_val)
+#     p_B.ChangeDutyCycle(100-B_val)
 
 
 @socketio.on('connect2pi')
@@ -87,6 +87,9 @@ def serial_read(json_data, methods=['GET', 'POST']):
     while True:
         # Setup printer to print at will
         mimo_setup()
+
+        # Print
+        mimo_print()
 
         data['button'] = mimo_button()
         socketio.emit('serial', data, callback=handle_serial)
