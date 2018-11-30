@@ -1,14 +1,14 @@
 import RPi.GPIO as GPIO
 import time
 
-colors = [0xFF0000, 0x00FF00, 0x0000FF, 0xFFFF00, 0x00FFFF, 0xFF00FF, 0xFFFFFF, 0x9400D3]
+colors = [0xFF0000, 0x00FF00, 0x0000FF, 0xFFFF00, 0x00FFFF, 0xFF00FF, 0xFFFFFF, 0x9400D3, 0x7D4B47]
 pins = {'pin_R': 11, 'pin_G': 12, 'pin_B': 13}  # pins is a dict
 
 GPIO.setmode(GPIO.BOARD)       # Numbers GPIOs by physical location
 
 for i in pins:
     GPIO.setup(pins[i], GPIO.OUT)   # Set pins' mode is output
-    GPIO.output(pins[i], GPIO.HIGH) # Set pins to high(+3.3V) to off led
+    GPIO.output(pins[i], GPIO.HIGH)  # Set pins to high(+3.3V) to off led
 
 p_R = GPIO.PWM(pins['pin_R'], 2000)  # set Frequece to 2KHz
 p_G = GPIO.PWM(pins['pin_G'], 2000)
@@ -37,10 +37,10 @@ def setColor(col):   # For example : col = 0x112233
     p_B.ChangeDutyCycle(100-B_val)
 
 try:
-        while True:
-                for col in colors:
-                        setColor(col)
-                        time.sleep(1.0)
+    while True:
+        for col in colors:
+            setColor(col)
+            time.sleep(1.0)
 except KeyboardInterrupt:
     p_R.stop()
     p_G.stop()

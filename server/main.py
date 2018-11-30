@@ -10,6 +10,10 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'asdf'
 socketio = SocketIO(app)
 
+# RGB LED Setup
+colors = [0xFF0000, 0x00FF00, 0x0000FF, 0xFFFF00, 0x00FFFF, 0xFF00FF, 0xFFFFFF, 0x9400D3]
+pins = {'pin_R': 11, 'pin_G': 12, 'pin_B': 13}  # pins is a dict
+
 
 @app.route('/')
 def index():
@@ -21,7 +25,7 @@ def handle_serial(methods=['GET', 'POST']):
 
 
 def setup_pi():
-    GPIO.setmode(GPIO.BCM)
+    GPIO.setmode(GPIO.BOARD)
     GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     GPIO.add_event_detect(4, GPIO.BOTH)
 
