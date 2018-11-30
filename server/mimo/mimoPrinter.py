@@ -103,4 +103,4 @@ def print_data(data):
 while True:
     setup()
     cable = 'I saw the best mionds of my generation destroyed by madness...'
-    print_data(tweet)
+    print_data(cable)
