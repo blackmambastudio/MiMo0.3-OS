@@ -2,6 +2,8 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO
 import time
 from mimo.core import mimo_button
+from mimo.mimoSerial import *
+import RPi.GPIO as GPIO
 
 
 app = Flask(__name__)
@@ -18,12 +20,20 @@ def handle_serial(methods=['GET', 'POST']):
     print('Received from serial IO')
 
 
+def setup_pi():
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.add_event_detect(4, GPIO.BOTH)
+
+
 @socketio.on('connect2pi')
 def serial_read(json_data, methods=['GET', 'POST']):
     """
     Reads from serial and emits to WS event
     TODO: Read data from Pi inputs
     """
+
+    # Setup connection with PI
     print('Connected from {0}'.format(json_data))
     response = {'message': 'Connected to serial'}
 
