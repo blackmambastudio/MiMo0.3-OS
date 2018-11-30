@@ -8,52 +8,52 @@ import time
 from unidecode import unidecode
 
 
-title = 'Weolcome to MiMo v3'
-subtitle = 'Latest news from MiMo feed'
-author = 'MiMo Team'
+def mimo_init():
+    title = 'Weolcome to MiMo v3'
+    subtitle = 'Latest news from MiMo feed'
+    author = 'MiMo Team'
 
-# Initialize printer
-printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
+    # Initialize printer
+    printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
 
-# Print welcome message
-printer.print(unidecode(
-        HTMLParser.HTMLParser().unescape(title)
+    # Print welcome message
+    printer.print(unidecode(
+            HTMLParser.HTMLParser().unescape(title)
+        )
     )
-)
 
-printer.feed(1)
+    printer.feed(1)
 
-printer.print(unidecode(
-        HTMLParser.HTMLParser().unescape(subtitle)
+    printer.print(unidecode(
+            HTMLParser.HTMLParser().unescape(subtitle)
+        )
     )
-)
 
-printer.feed(1)
+    printer.feed(1)
 
-printer.print(unidecode(
-        HTMLParser.HTMLParser().unescape(author)
+    printer.print(unidecode(
+            HTMLParser.HTMLParser().unescape(author)
+        )
     )
-)
 
-printer.feed(1)
+    printer.feed(1)
 
-printer.print(unidecode(
-        HTMLParser.HTMLParser().unescape('2018')
+    printer.print(unidecode(
+            HTMLParser.HTMLParser().unescape('2018')
+        )
     )
-)
 
-printer.feed(4)
+    printer.feed(4)
 
-
-IO.setmode(IO.BOARD)
-IO.setup(29, IO.OUT)
-IO.output(29, True)
-time.sleep(2)
-IO.output(29, False)
-IO.cleanup()
+    IO.setmode(IO.BOARD)
+    IO.setup(29, IO.OUT)
+    IO.output(29, True)
+    time.sleep(2)
+    IO.output(29, False)
+    IO.cleanup()
 
 
-def setup():
+def mimo_setup():
     # LED configuration
     IO.setmode(IO.BOARD)
     IO.setup(33, IO.OUT)
@@ -61,7 +61,7 @@ def setup():
     IO.setup(29, IO.OUT)
 
 
-def print_data(data):
+def mimo_print(data):
     '''
     TODO: Implement JSON parse
     '''
@@ -100,11 +100,11 @@ def print_data(data):
     time.sleep(10)
 
 
-while True:
-    setup()
-    cable = {
-            'user': 'MiMo Console',
-            'date': 'Oct 30  1982',
-            'text': 'I saw the best minds of my generation destroyed by madness...'
-    }
-    print_data(cable)
+if __name__ == '__main__':
+    while True:
+        cable = {
+                'user': 'MiMo Console',
+                'date': 'Oct 30  1982',
+                'text': 'I saw the best minds of my generation destroyed by madness...'
+        }
+        print_data(cable)

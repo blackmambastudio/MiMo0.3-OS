@@ -3,6 +3,7 @@ from flask_socketio import SocketIO
 import time
 from mimo.core import mimo_button
 from mimo.mimoSerial import *
+from mimo.mimoPrinter import mimo_print, mimo_setup, mimo_init
 import RPi.GPIO as GPIO
 
 
@@ -68,6 +69,9 @@ def serial_read(json_data, methods=['GET', 'POST']):
     TODO: Read data from Pi inputs
     """
 
+    # Init printer
+    mimo_init()
+
     # Setup connection with PI
     print('Connected from {0}'.format(json_data))
     response = {'message': 'Connected to serial'}
@@ -81,6 +85,9 @@ def serial_read(json_data, methods=['GET', 'POST']):
 
     # TODO: Implement serial read here
     while True:
+        # Setup printer to print at will
+        mimo_setup()
+
         data['button'] = mimo_button()
         socketio.emit('serial', data, callback=handle_serial)
 
