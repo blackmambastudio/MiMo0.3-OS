@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 import time
+from mimo.core import mimo_button
 
 
 app = Flask(__name__)
@@ -31,10 +32,11 @@ def serial_read(json_data, methods=['GET', 'POST']):
     socketio.emit('serial', response, callback=handle_serial)
 
     # Test if WS is working
-    data = {'type': 'serial_input', 'data': 'hello'}
+    data = {'type': 'serial_input', 'data': 'hello', 'button': ''}
 
     # TODO: Implement serial read here
     while True:
+        data['button'] = mimo_button()
         socketio.emit('serial', data, callback=handle_serial)
 
         # Sleep for 10 seconds
