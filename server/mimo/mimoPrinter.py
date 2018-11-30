@@ -2,15 +2,15 @@ from __future__ import print_function
 
 from lib.Adafruit_Thermal import *
 import HTMLParser
-import os
+# import os
 import RPi.GPIO as IO
 import time
 from unidecode import unidecode
 
 
-title = os.environ['TITLE']
-subtitle = os.environ['SUBTITLE']
-author = os.environ['AUTHOR']
+title = 'Weolcome to MiMo v3'
+subtitle = 'Latest news from MiMo feed'
+author = 'MiMo Team'
 
 # Initialize printer
 printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
