@@ -2,9 +2,7 @@ from __future__ import print_function
 
 from utils.Adafruit_Thermal import *
 import HTMLParser
-# import os
 import RPi.GPIO as IO
-import time
 from unidecode import unidecode
 
 
@@ -45,11 +43,6 @@ def mimo_init():
 
     printer.feed(4)
 
-    IO.setmode(IO.BOARD)
-    IO.setup(29, IO.OUT)
-    IO.output(29, True)
-    time.sleep(2)
-    IO.output(29, False)
     IO.cleanup()
 
 
