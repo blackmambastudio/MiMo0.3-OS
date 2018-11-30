@@ -102,5 +102,9 @@ def print_data(data):
 
 while True:
     setup()
-    cable = 'I saw the best mionds of my generation destroyed by madness...'
+    cable = {
+            'user': 'MiMo Console',
+            'date': 'Nov 30 2018',
+            'text': 'I saw the best minds of my generation destroyed by madness...'
+    }
     print_data(cable)
