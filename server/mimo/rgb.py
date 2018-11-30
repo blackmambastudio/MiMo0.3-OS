@@ -37,9 +37,9 @@ def setColor(col):   # For example : col = 0x112233
     p_B.ChangeDutyCycle(100-B_val)
 
 try:
-    setColor(colors[0])
 
-    # while True:
+    while True:
+        setColor(colors[1])
     #     for col in colors:
     #         setColor(col)
     #         time.sleep(1.0)
