@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from ..lib.Adafruit_Thermal import *
+from lib.Adafruit_Thermal import *
 import HTMLParser
 import os
 import RPi.GPIO as IO
