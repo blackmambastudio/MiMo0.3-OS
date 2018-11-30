@@ -97,7 +97,7 @@ def print_data(data):
     IO.output(29, False)
 
     IO.cleanup()
-    time.sleep(40)
+    time.sleep(10)
 
 
 while True:
