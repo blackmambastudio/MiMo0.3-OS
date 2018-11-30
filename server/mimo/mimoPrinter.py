@@ -98,3 +98,9 @@ def print_data(data):
 
     IO.cleanup()
     time.sleep(40)
+
+
+while True:
+    setup()
+    cable = 'I saw the best mionds of my generation destroyed by madness...'
+    start_printing(tweet)
