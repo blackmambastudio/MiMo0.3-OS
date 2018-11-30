@@ -65,10 +65,6 @@ def mimo_print(data):
     '''
     TODO: Implement JSON parse
     '''
-    # Printer LED on
-    IO.output(31, True)
-    time.sleep(1)
-
     # Start printing
     printer.inverseOn()
     printer.print(' ' + '{:<31}'.format(data['user']))
@@ -87,24 +83,15 @@ def mimo_print(data):
 
     printer.feed(6)
 
-    # Printer LED off
-    IO.output(31, False)
-
-    time.sleep(5)
-
-    IO.output(29, True)
-    time.sleep(1.5)
-    IO.output(29, False)
-
     IO.cleanup()
-    time.sleep(10)
 
 
 if __name__ == '__main__':
     while True:
+        mimo_setup()
         cable = {
                 'user': 'MiMo Console',
                 'date': 'Oct 30  1982',
                 'text': 'I saw the best minds of my generation destroyed by madness...'
         }
-        print_data(cable)
+        mimo_print(cable)
