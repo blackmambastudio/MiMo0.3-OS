@@ -5,6 +5,9 @@ import HTMLParser
 import RPi.GPIO as IO
 from unidecode import unidecode
 
+# Initialize printer
+printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
+
 
 def mimo_init():
     title = 'Weolcome to MiMo v3'
@@ -12,7 +15,7 @@ def mimo_init():
     author = 'MiMo Team'
 
     # Initialize printer
-    printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
+    # printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
 
     # Print welcome message
     printer.print(unidecode(
