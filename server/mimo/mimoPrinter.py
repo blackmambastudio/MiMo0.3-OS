@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from lib.Adafruit_Thermal import *
+from utils.Adafruit_Thermal import *
 import HTMLParser
 # import os
 import RPi.GPIO as IO
@@ -103,4 +103,4 @@ def print_data(data):
 while True:
     setup()
     cable = 'I saw the best mionds of my generation destroyed by madness...'
-    start_printing(tweet)
+    print_data(tweet)
