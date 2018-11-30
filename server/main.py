@@ -83,13 +83,19 @@ def serial_read(json_data, methods=['GET', 'POST']):
     # Test if WS is working
     data = {'type': 'serial_input', 'data': 'hello', 'button': ''}
 
+    cable = {
+        'user': 'MiMo Console',
+        'date': 'Oct 30  1982',
+        'text': 'I saw the best minds of my generation destroyed by madness...'
+    }
+
     # TODO: Implement serial read here
     while True:
         # Setup printer to print at will
         mimo_setup()
 
         # Print
-        mimo_print()
+        mimo_print(cable)
 
         data['button'] = mimo_button()
         socketio.emit('serial', data, callback=handle_serial)
