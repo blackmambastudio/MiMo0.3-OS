@@ -21,6 +21,10 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
 def handle_serial(methods=['GET', 'POST']):
     print('Received from serial IO')
 
