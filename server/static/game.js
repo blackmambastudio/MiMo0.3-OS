@@ -6,14 +6,25 @@ context.strokeStyle = "#fff"
 
 var keyMap = 0;
 var keys = {
-  '65':1,         // left
-  '87':2,         // up
-  '68':4,         // right
-  '83':8,          // down
+  '65':1<<0,         // left
+  '87':1<<1,         // up
+  '68':1<<2,         // right
+  '83':1<<3,          // down
   
-  '82':16,        // Red button
-  '71':32,        // green button
-  '66':64         // Red button
+  '82':1<<4,        // Red button
+  '71':1<<5,        // green button
+  '66':1<<6,         // Red button
+  
+  '96':1<<7,         // numpad 0
+  '97':1<<8,         // numpad 1
+  '98':1<<9,         // numpad 2
+  '99':1<<10,         // numpad 3
+  '100':1<<11,         // numpad 4
+  '101':1<<12,         // numpad 5
+  '102':1<<13,         // numpad 6
+  '103':1<<14,         // numpad 7
+  '104':1<<15,         // numpad 8
+  '105':1<<16,         // numpad 9
 }
 
 var tileSize = 20;
@@ -41,6 +52,8 @@ var colors = {
 var activeR = false;
 var activeG = false;
 var activeB = false;
+
+var numpad = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 var maze = [
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -104,6 +117,18 @@ function checkToggleChannels(){
     }
   } else {
     buttonChannels[2] = 0;
+  }
+
+  for (var index = 0; index < 10; index++) {
+    if(keyMap&keys[96+index]){
+      if(numpad[index]==0){
+        numpad[index] = 1;
+        onNumpadPressed(index);
+      }
+    }else{
+      numpad[index] = 0;
+    }
+    
   }
 }
 
@@ -285,4 +310,50 @@ function checkSolution() {
     console.log("WIN");
     document.getElementById("win").className = "";
   }
+}
+
+function onNumpadPressed(index) {
+  if(index==0) numpad0()
+  else if(index==1) numpad1()
+  else if(index==2) numpad2()
+  else if(index==3) numpad3()
+  else if(index==4) numpad4()
+  else if(index==5) numpad5()
+  else if(index==6) numpad6()
+  else if(index==7) numpad7()
+  else if(index==8) numpad8()
+  else if(index==9) numpad9()
+  nextZIndex++;
+}
+var nextZIndex = 1;
+
+function numpad0() {
+  document.getElementById("maze").style = "z-index: "+nextZIndex+";";
+}
+function numpad1() {
+  document.getElementById("image-1").style = "z-index: "+nextZIndex+";";
+}
+function numpad2() {
+  document.getElementById("image-2").style = "z-index: "+nextZIndex+";";
+}
+function numpad3() {
+  document.getElementById("image-3").style = "z-index: "+nextZIndex+";";
+}
+function numpad4() {
+  document.getElementById("image-4").style = "z-index: "+nextZIndex+";";
+}
+function numpad5() {
+  document.getElementById("image-5").style = "z-index: "+nextZIndex+";";
+}
+function numpad6() {
+  document.getElementById("image-6").style = "z-index: "+nextZIndex+";";
+}
+function numpad7() {
+  document.getElementById("logo").style = "z-index: "+nextZIndex+";";
+}
+function numpad8() {
+  document.getElementById("maze").style = "z-index: "+nextZIndex+";";
+}
+function numpad9() {
+  document.getElementById("maze").style = "z-index: "+nextZIndex+";";
 }
