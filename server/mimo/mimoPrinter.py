@@ -88,6 +88,6 @@ if __name__ == '__main__':
         cable = {
                 'user': 'MiMo Console',
                 'date': 'Oct 30  1982',
-                'text': 'I saw the best minds of my generation destroyed by madness...'
+                'text': '>> INCOMING EVENT <<\n\nTHE PRESIDENTIAL CANDIDATE FULANO SAYS HE WILL ALWAYS SUPPORT TELMAR AS LONG AS THAT DOESN\'T JEOPARDIZE OUR RELATIONSHIP WITH HUNAGARA\'S GOVERMENT.'
         }
         mimo_print(cable)
