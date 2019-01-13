@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO
 
-from mimo.hardware.io import buttons
-
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '1Secret!'
@@ -10,39 +8,17 @@ socketio = SocketIO(app)
 
 
 def emit(data):
-    socketio.emit('gpio', data)
-
-
-def init_test():
-    while True:
-        for k, v in buttons.items():
-            data = {'action': v}
-            emit(data)
-            socketio.sleep(1)
-        break
-    return
-
-
-@app.route('/test')
-def index():
-    return render_template('test.html')
+    socketio.emit('gpio', data, callback=serial_read)
 
 
 @app.route('/gpio/')
 def web_gpio():
-    action = request.args.get('action')
-
+    button = request.args.get('button')
     data = {
-        'action': action
+        'button': button
     }
-
-    if action == 'ON':
-        data = {'action': 'MiMo Console is starting up...'}
-        emit(data)
-        init_test()
-    else:
-        emit(data)
-    return render_template('gpio.html', action=action)
+    emit(data)
+    return render_template('gpio.html', button=button)
 
 
 def messageReceived(methods=['GET', 'POST']):

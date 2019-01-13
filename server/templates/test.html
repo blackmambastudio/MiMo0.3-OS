@@ -1,81 +1,31 @@
-<!DOCTYPE html>
 <html>
 <head>
-	<title>MiMo Client</title>
-	<style type="text/css">
-		body {
-		  margin: 0;
-		  padding: 0;
-		}
-		#maze {
-		  background: #000;
-		  width: 640px;
-		  height: 480px;
-		  display: block;
-		  position: absolute;
-		  top: 0;
-		  bottom: 0;
-		  left: 0;
-		  right: 0;
-		}
-
-		.off {
-		  
-		}
-		.on {
-		  border: none;
-		  color: #fff;
-		}
-		label {
-		  font-size: 24px;
-		  font-weight: 800;
-		}
-		.hide {
-		  visibility: hidden;
-		}
-
-		.full {
-		  height: 480px;
-		  position: absolute;
-		  display: block;
-		  top: 0;
-		  margin: 0 45px;
-		}
-		.logo {
-		    position: absolute;
-		    display: block;
-		    top: 0;
-		    padding: 60px 0;
-		    margin: 0px 15px;
-		    image-rendering: pixelated;
-		    height: 360px;
-		    background: black;
-		}
-	</style>
+	<title>GPIO</title>
 </head>
 <body>
 	<div class="wrapper">
-		<section class="content">
-			<h3>Connecting...</h2>
-			<div class='data'></div>
-		</section>
-		<section class="game">
-			<canvas id="maze" width="320" height="240"></canvas>
+  	<section class="slider">
 
-			<button id="red" class="off" style="background: #ff3366">red</button>
-			<button id="green" class="off" style="background: #66ff33">green</button>
-			<button id="blue" class="off" style="background: #3366ff">blue</button>
-
-			<label id="win" class="hide">M detected! WIN</label>
-		</section>		
+  	</section>
 	</div>
-	<image id="image-5" class="full" src="/static/mg_reporter.png" />
-	<image id="image-6" class="full" src="/static/mp_childrenPoor.png" />
-	<image id="image-3" class="full" src="/static/mp_factoryAbandoned.png" />
-	<image id="image-4" class="full" src="/static/mp_peopleProtest.png" />
-	<image id="image-2" class="full" src="/static/mp_politicianSpeech.png" />
-	<image id="image-1" class="full" src="/static/mp_womenWorking.png" />
-	<image id="logo" class="logo" src="/static/logo_mimo_small.png" />
-	<script type="text/javascript" src="/static/game.js"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='socket.io.js') }}"></script>
+	<script type="text/javascript">
+		var socket = io.connect('http://' + document.domain + ':' + location.port);
+		
+		socket.on( 'connect', function() {
+		  socket.emit( 'connect2pi', {
+		    data: 'Table UI connected.'
+		  });
+		});
+
+		socket.on( 'connect2pi', function(msg) {
+		  console.log(msg);
+		});
+
+		socket.on('gpio', function(data) {
+		  console.log('Read from GPIO: ' + data.action);
+		  
+		});
+	</script>
 </body>
 </html>

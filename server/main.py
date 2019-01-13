@@ -2,11 +2,12 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO
 import time
 from mimo.core import mimo_button
-from mimo.utils import I2C_LCD_driver
+# from mimo.utils import I2C_LCD_driver
+from mimo.events import EventBus
 
 # from mimo.mimoSerial import *
-from mimo.mimoPrinter import mimo_print, mimo_setup, mimo_init
-import RPi.GPIO as GPIO
+# from mimo.mimoPrinter import mimo_print, mimo_setup, mimo_init
+# import RPi.GPIO as GPIO
 
 
 app = Flask(__name__)
@@ -21,23 +22,27 @@ pins = {'pin_R': 11, 'pin_G': 12, 'pin_B': 13}  # pins is a dict
 # GPIO.setmode(GPIO.BOARD)
 # GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 # GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+# GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+# GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+# GPIO.setup(32, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+# GPIO.setup(36, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 # Setup LCD screens
-lcd21 = I2C_LCD_driver.lcd(0x21)
-lcd22 = I2C_LCD_driver.lcd(0x22)
-lcd23 = I2C_LCD_driver.lcd(0x23)
-lcd25 = I2C_LCD_driver.lcd(0x25)
-lcd26 = I2C_LCD_driver.lcd(0x26)
-lcd27 = I2C_LCD_driver.lcd(0x27)
+# lcd21 = I2C_LCD_driver.lcd(0x21)
+# lcd22 = I2C_LCD_driver.lcd(0x22)
+# lcd23 = I2C_LCD_driver.lcd(0x23)
+# lcd25 = I2C_LCD_driver.lcd(0x25)
+# lcd26 = I2C_LCD_driver.lcd(0x26)
+# lcd27 = I2C_LCD_driver.lcd(0x27)
 
-SCREENS = {
-    21: lcd21,
-    22: lcd22,
-    23: lcd23,
-    25: lcd25,
-    26: lcd26,
-    27: lcd27
-}
+# SCREENS = {
+#     21: lcd21,
+#     22: lcd22,
+#     23: lcd23,
+#     25: lcd25,
+#     26: lcd26,
+#     27: lcd27
+# }
 
 
 @app.route('/')
@@ -59,27 +64,27 @@ def handle_button(channel):
     socketio.emit('gpio', data)
 
 
-def display_lcd(i2c_address, message):
-    SCREENS[i2c_address].lcd_display_string(message, 1)
+# def display_lcd(i2c_address, message):
+#     SCREENS[i2c_address].lcd_display_string(message, 1)
 
 
-def setup_pi():
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.add_event_detect(4, GPIO.BOTH)
+# def setup_pi():
+#     GPIO.setmode(GPIO.BOARD)
+#     GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+#     GPIO.add_event_detect(4, GPIO.BOTH)
 
-    # Setup LED
-    for i in pins:
-        GPIO.setup(pins[i], GPIO.OUT)   # Set pins' mode is output
-        GPIO.output(pins[i], GPIO.HIGH)  # Set pins to high(+3.3V) to off led
+#     # Setup LED
+#     for i in pins:
+#         GPIO.setup(pins[i], GPIO.OUT)   # Set pins' mode is output
+#         GPIO.output(pins[i], GPIO.HIGH)  # Set pins to high(+3.3V) to off led
 
-    p_R = GPIO.PWM(pins['pin_R'], 2000)  # set Frequece to 2KHz
-    p_G = GPIO.PWM(pins['pin_G'], 2000)
-    p_B = GPIO.PWM(pins['pin_B'], 2000)
+#     p_R = GPIO.PWM(pins['pin_R'], 2000)  # set Frequece to 2KHz
+#     p_G = GPIO.PWM(pins['pin_G'], 2000)
+#     p_B = GPIO.PWM(pins['pin_B'], 2000)
 
-    p_R.start(0)      # Initial duty Cycle = 0(leds off)
-    p_G.start(0)
-    p_B.start(0)
+#     p_R.start(0)      # Initial duty Cycle = 0(leds off)
+#     p_G.start(0)
+#     p_B.start(0)
 
 
 def map(x, in_min, in_max, out_min, out_max):
@@ -108,7 +113,7 @@ def serial_read(json_data, methods=['GET', 'POST']):
     """
 
     # Init printer
-    mimo_init()
+    # mimo_init()
 
     # Setup connection with PI
     print('Connected from {0}'.format(json_data))
@@ -130,10 +135,10 @@ def serial_read(json_data, methods=['GET', 'POST']):
     # TODO: Implement serial read here
     while True:
         # Setup printer to print at will
-        mimo_setup()
+        # mimo_setup()
 
         # Print
-        mimo_print(cable)
+        # mimo_print(cable)
 
         data['button'] = mimo_button()
         socketio.emit('serial', data, callback=handle_serial)
@@ -146,4 +151,9 @@ if __name__ == '__main__':
     # Add button events
     # GPIO.add_event_detect(12, GPIO.RISING, callback=handle_button, bouncetime=1000)
     # GPIO.add_event_detect(16, GPIO.RISING, callback=handle_button, bouncetime=1000)
+    # GPIO.add_event_detect(18, GPIO.RISING, callback=handle_button, bouncetime=1000)
+    # GPIO.add_event_detect(22, GPIO.RISING, callback=handle_button, bouncetime=1000)
+    # GPIO.add_event_detect(32, GPIO.RISING, callback=handle_button, bouncetime=1000)
+    # GPIO.add_event_detect(36, GPIO.RISING, callback=handle_button, bouncetime=1000)
+
     socketio.run(app, host='0.0.0.0', debug=True)
