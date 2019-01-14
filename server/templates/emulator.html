@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Emulator</title>
+  <style>
+  #bottom > div {
+  display: block;
+  float: left;
+}
+#materials-A, #materials-B {
+  width: 205px;
+}
+.material {
+  width: 200px;
+  height: 60px;
+  display: block;
+}
+.material button {
+  width: 50px;
+  height: 50px;
+  display: block;
+}
+.material label {
+  background: #000033;
+  color: #0DD;
+  padding: 5px;
+  display: block;
+  margin-top: 10px;
+  width: 128px;
+}
+#materials-A button {float: left;}
+#materials-B button {float: right;}
+#materials-A label {float: right;}
+#materials-B label {float: left;}
+
+#optimization {
+  width: 300px;
+  text-align: center;
+}
+#sequence {
+  display: block;
+  text-align: center;
+}
+#sequence label {
+  width: 12px;
+  height: 12px;
+  border: 1px solid #222;
+  display: inline-block;
+}
+
+.colora {
+  background: #f00;
+}
+.colorb {
+  background: #0f0;
+}
+.colorc {
+  background: #00f;
+}
+.colord {
+  background: #ff0;
+}
+.colore {
+  background: #0ff;
+}
+.colorf {
+  background: #f0f;
+}
+
+#control button {
+  width: 40px;
+  height: 20px;
+}
+</style>
+</head>
+<body>
+  <div id="mimo">
+    <div id="top">
+      <div id="printer">
+        <textarea></textarea>
+      </div>
+    </div>
+    <div id="bottom">
+      <div id="materials-A">
+        <div class="material" id="mat-a">
+          <button onclick="toggleMat('a')" data-code="BTN-A"></button>
+          <label>no data</label>
+        </div>
+        <div class="material" id="mat-b">
+          <button onclick="toggleMat('b')" data-code="BTN-B"></button>
+          <label>no data</label>
+        </div>
+        <div class="material" id="mat-c">
+          <button onclick="toggleMat('c')" data-code="BTN-C"></button>
+          <label>no data</label>
+        </div>
+      </div>
+      <div id="optimization">
+        <div id="sequence">
+          <label id='led-a'></label>
+          <label id='led-b'></label>
+          <label id='led-c'></label>
+          <label id='led-d'></label>
+        </div>
+        <div id="emosense">
+          <progress></progress>
+        </div>
+        <div id="control">
+          <button onclick="actionBtn('0')">0</button>
+          <button onclick="actionBtn('1')">1</button>
+          <button onclick="actionBtn('2')">2</button>
+          <br>
+          <button onclick="actionBtn('3')">3</button>
+          <button onclick="actionBtn('4')">4</button>
+        </div>
+      </div>
+      <div id="materials-B">
+        <div class="material" id="mat-d">
+          <label>no data</label>
+          <button onclick="toggleMat('d')" data-code="BTN-D"></button>
+        </div>
+        <div class="material" id="mat-e">
+          <label>no data</label>
+          <button onclick="toggleMat('e')" data-code="BTN-E"></button>
+        </div>
+        <div class="material" id="mat-f">
+          <label>no data</label>
+          <button onclick="toggleMat('f')" data-code="BTN-F"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    function toggleMat(id) {
+      var classname = "color"+id;
+      var button = document.querySelector("#mat-"+id+" > button");
+      button.classList.toggle(classname);
+      sendMessage(button.getAttribute('data-code'));
+      updateSequence(id, button.classList.contains(classname));
+    }
+
+    function actionBtn(id) {
+      console.log('id', id, 'pressed');
+    }
+
+    function displayOnLed(id, message) {
+      var display = document.querySelector("#mat-"+id+" > label");
+      display.innerHTML = message;
+    }
+
+    function turnOnLed(id, color){
+      var led = document.getElementById("led-"+id);
+      led.classList.toggle("color"+color);
+    }
+
+    function updateSequence(id, active){
+      var labels = document.querySelectorAll("#sequence label");
+      var set = false;
+      labels.forEach(function(label){
+        if(set) return;
+        if(active && !label.className){
+          label.classList.toggle('color'+id);
+          set = true;
+        }
+        if(!active && label.classList.contains('color'+id)) {
+          label.classList.toggle('color'+id);
+          set = true;
+        }
+      });
+    }
+
+    function sendMessage(code){
+      var httpRequest = new XMLHttpRequest()
+      httpRequest.open('GET', 'http://localhost:8000/gpio/?action='+code, true);
+      httpRequest.send();
+    }
+
+  </script>
+</body>

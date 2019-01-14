@@ -28,6 +28,12 @@ def index():
     return render_template('test.html')
 
 
+@app.route('/emulator')
+def emulator():
+    return render_template('emulator.html')
+
+
+
 @app.route('/gpio/')
 def web_gpio():
     action = request.args.get('action')
