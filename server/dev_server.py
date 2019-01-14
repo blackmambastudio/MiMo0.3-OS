@@ -33,6 +33,10 @@ def emulator():
     return render_template('emulator.html')
 
 
+@app.route('/screen')
+def screen():
+    return render_template('screen.html')
+
 
 @app.route('/gpio/')
 def web_gpio():
@@ -48,7 +52,7 @@ def web_gpio():
         init_test()
     else:
         emit(data)
-    return render_template('gpio.html', action=action)
+    return "ok"
 
 
 def messageReceived(methods=['GET', 'POST']):
