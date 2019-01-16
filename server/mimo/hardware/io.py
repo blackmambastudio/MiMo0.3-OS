@@ -1,11 +1,9 @@
 from collections import OrderedDict
 
-# Button pin list
-switches = OrderedDict()
+# Create an ordered dictionary of IO devices indexed by their pin number
+
+# Buttons ordered dictionary
 buttons = OrderedDict()
-
-switches[0] = 'SWITCH'
-
 buttons[10] = 'BTN_GREEN'
 buttons[11] = 'BTN_RED'
 buttons[12] = 'BTN_A'
@@ -18,3 +16,30 @@ buttons[0] = 'BTN_0'
 buttons[1] = 'BTN_1'
 buttons[2] = 'BTN_2'
 buttons[3] = 'BTN_3'
+
+button_states = {
+    10: False,
+    11: False,
+    12: False,
+    16: False,
+    18: False,
+    22: False,
+    32: False,
+    36: False,
+    0: False,
+    1: False,
+    2: False,
+    3: False
+}
+
+# LCD screens ordered dictionary
+lcd_screens = OrderedDict()
+lcd_screens['21'] = None
+lcd_screens['22'] = None
+lcd_screens['23'] = None
+lcd_screens['25'] = None
+lcd_screens['26'] = None
+lcd_screens['27'] = None
+
+# ON/OFF switches
+switch = 'SWITCH'

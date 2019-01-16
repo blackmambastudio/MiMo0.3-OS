@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO
 
-from mimo.hardware.io import buttons
+from mimo.hardware.io import buttons, button_states
 
 
 app = Flask(__name__)
@@ -21,6 +21,10 @@ def init_test():
             socketio.sleep(1)
         break
     return
+
+
+def display_lcd(i2c_address, message):
+    screens[i2c_address].lcd_display_string(message, 1)
 
 
 @app.route('/test')
