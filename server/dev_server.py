@@ -41,9 +41,11 @@ def screen():
 @app.route('/gpio/')
 def web_gpio():
     action = request.args.get('action')
+    status = request.args.get('status')
 
     data = {
-        'action': action
+        'action': action,
+        'status': status
     }
 
     if action == 'ON':

@@ -83,15 +83,15 @@
     <div id="bottom">
       <div id="materials-A">
         <div class="material" id="mat-a">
-          <button onclick="toggleMat('a')" data-code="BTN-A"></button>
+          <button onmousedown="toggleMat('a', 1)" onmouseup="toggleMat('a', 0)" data-code="BTN-A"></button>
           <label>no data</label>
         </div>
         <div class="material" id="mat-b">
-          <button onclick="toggleMat('b')" data-code="BTN-B"></button>
+          <button onmousedown="toggleMat('b', 1)" onmouseup="toggleMat('b', 0)" data-code="BTN-B"></button>
           <label>no data</label>
         </div>
         <div class="material" id="mat-c">
-          <button onclick="toggleMat('c')" data-code="BTN-C"></button>
+          <button onmousedown="toggleMat('c', 1)" onmouseup="toggleMat('c', 0)" data-code="BTN-C"></button>
           <label>no data</label>
         </div>
       </div>
@@ -106,41 +106,41 @@
           <progress></progress>
         </div>
         <div id="control">
-          <button onclick="actionBtn('0')">0</button>
-          <button onclick="actionBtn('1')">1</button>
-          <button onclick="actionBtn('2')">2</button>
+          <button onmousedown="actionBtn('BTN-0', 1)" onmouseup="actionBtn('BTN-0', 0)">0</button>
+          <button onmousedown="actionBtn('BTN-1', 1)" onmouseup="actionBtn('BTN-1', 0)">1</button>
+          <button onmousedown="actionBtn('BTN-2', 1)" onmouseup="actionBtn('BTN-2', 0)">2</button>
           <br>
-          <button onclick="actionBtn('3')">3</button>
-          <button onclick="actionBtn('4')">4</button>
+          <button onmousedown="actionBtn('BTN-3', 1)" onmouseup="actionBtn('BTN-3', 0)">3</button>
+          <button onmousedown="actionBtn('BTN-4', 1)" onmouseup="actionBtn('BTN-4', 0)">4</button>
         </div>
       </div>
       <div id="materials-B">
         <div class="material" id="mat-d">
           <label>no data</label>
-          <button onclick="toggleMat('d')" data-code="BTN-D"></button>
+          <button onmousedown="toggleMat('d', 1)" onmouseup="toggleMat('d', 0)" data-code="BTN-D"></button>
         </div>
         <div class="material" id="mat-e">
           <label>no data</label>
-          <button onclick="toggleMat('e')" data-code="BTN-E"></button>
+          <button onmousedown="toggleMat('e', 1)" onmouseup="toggleMat('e', 0)" data-code="BTN-E"></button>
         </div>
         <div class="material" id="mat-f">
           <label>no data</label>
-          <button onclick="toggleMat('f')" data-code="BTN-F"></button>
+          <button onmousedown="toggleMat('f', 1)" onmouseup="toggleMat('f', 0)" data-code="BTN-F"></button>
         </div>
       </div>
     </div>
   </div>
   <script type="text/javascript">
-    function toggleMat(id) {
+    function toggleMat(id, status) {
       var classname = "color"+id;
       var button = document.querySelector("#mat-"+id+" > button");
       button.classList.toggle(classname);
-      sendMessage(button.getAttribute('data-code'));
+      sendMessage(button.getAttribute('data-code'), status);
       updateSequence(id, button.classList.contains(classname));
     }
 
-    function actionBtn(id) {
-      console.log('id', id, 'pressed');
+    function actionBtn(id, status) {
+      sendMessage(id, status);
     }
 
     function displayOnLed(id, message) {
@@ -169,9 +169,9 @@
       });
     }
 
-    function sendMessage(code){
+    function sendMessage(code, status){
       var httpRequest = new XMLHttpRequest()
-      httpRequest.open('GET', 'http://localhost:8000/gpio/?action='+code, true);
+      httpRequest.open('GET', 'http://localhost:8000/gpio/?action='+code+'&status='+status, true);
       httpRequest.send();
     }
 
