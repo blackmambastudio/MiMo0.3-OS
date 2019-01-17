@@ -35,6 +35,9 @@ def button_callback(channel):
 
 
 def init_hardware():
+    # Clean GPIO
+    GPIO.cleanup()
+
     GPIO.setmode(GPIO.BOARD)
 
     # # Init buttons
@@ -169,6 +172,8 @@ def rgb_led(json_data, methods=['GET', 'POST']):
     r = json_data['r']
     g = json_data['g']
     b = json_data['b']
+
+    print(json_data)
 
     rgb_led_switch(rgb_id, r, g, b)
 
