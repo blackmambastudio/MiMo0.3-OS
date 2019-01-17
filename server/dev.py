@@ -34,6 +34,16 @@ def button_callback(channel):
         emit(data)
 
 
+def rgb_led_switch(id, r, g, b):
+    led = rgb_leds[id]
+    r_pin = led['pins']['r']
+    g_pin = led['pins']['g']
+    b_pin = led['pins']['b']
+    GPIO.output(r_pin, r)
+    GPIO.output(g_pin, g)
+    GPIO.output(b_pin, b)
+
+
 def init_hardware():
     # Clean GPIO
     GPIO.cleanup()
@@ -59,6 +69,9 @@ def init_hardware():
         GPIO.setup(v['pins']['g'], GPIO.OUT)
         GPIO.setup(v['pins']['b'], GPIO.OUT)
 
+        # Clean LEDs
+        rgb_led_switch(k, 1, 1, 1)
+
 
 def init_test():
     for k, v in buttons.items():
@@ -69,16 +82,6 @@ def init_test():
 
 def lcd_display_message(lcd_id, message, line):
     lcd_screens[lcd_id]['instance'].lcd_display_string(message, line)
-
-
-def rgb_led_switch(id, r, g, b):
-    led = rgb_leds[id]
-    r_pin = led['pins']['r']
-    g_pin = led['pins']['g']
-    b_pin = led['pins']['b']
-    GPIO.output(r_pin, r)
-    GPIO.output(g_pin, g)
-    GPIO.output(b_pin, b)
 
 
 @app.route('/test')
