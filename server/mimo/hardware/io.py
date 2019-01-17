@@ -10,10 +10,10 @@ buttons = OrderedDict()
 # Material buttons
 buttons[12] = 'BTN_A'
 buttons[16] = 'BTN_B'
-#buttons[13] = 'BTN_C'
-#buttons[15] = 'BTN_D'
-#buttons[19] = 'BTN_E'
-#buttons[21] = 'BTN_F'
+# buttons[13] = 'BTN_C'
+# buttons[15] = 'BTN_D'
+# buttons[19] = 'BTN_E'
+# buttons[21] = 'BTN_F'
 
 # Optimization buttons
 # buttons[0] = 'BTN_0'
