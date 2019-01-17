@@ -139,6 +139,12 @@ def lcd_clear(json_data, methods=['GET', 'POST']):
     lcd_screens[lcd_id]['instance'].lcd_clear()
 
 
+@socketio.on('hello')
+def handle_event(json, methods=['GET', 'POST']):
+    print('Received event: {0}'.format(json))
+    socketio.emit('hello', json, callback=messageReceived)
+
+
 @socketio.on('connect2pi')
 def handle_serial(json_data, methods=['GET', 'POST']):
     print('Connected from {0}'.format(json_data))
