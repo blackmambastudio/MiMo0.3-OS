@@ -19,20 +19,22 @@ def emit(data):
 
 
 def serial_read(methods=['GET', 'POST']):
-    print('Message received serial')
+    print('Emited to GPIO!')
 
 
 def button_callback(channel):
-    print('entra evento channel {0}'.format(str(channel)))
+    # print('entra evento channel {0}'.format(str(channel)))
+    socketio.emit('hello', {}, callback=serial_read)
+
     data = {}
     if button_state[channel]:
-        print('button available channel {0} -> {1}'.format(str(channel), str(GPIO.input(channel))))
+        # print('button available channel {0} -> {1}'.format(str(channel), str(GPIO.input(channel))))
         button_pressed[channel] = not button_pressed[channel]
         if button_pressed[channel]:
-            print('on pressed')
+            # print('on pressed')
             data = {'action': buttons[channel], 'status': 1}
         else:
-            print('on release')
+            # print('on release')
             data = {'action': buttons[channel], 'status': 0}
 
         socketio.emit('gpio', data, callback=serial_read)
