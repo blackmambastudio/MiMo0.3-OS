@@ -171,7 +171,7 @@ def btn_led(json_data, methods=['GET', 'POST']):
 
 @socketio.on('rgb_led')
 def rgb_led(json_data, methods=['GET', 'POST']):
-    rgb_id = json_data['id']
+    rgb_id = int(json_data['id'])
     r = json_data['r']
     g = json_data['g']
     b = json_data['b']
