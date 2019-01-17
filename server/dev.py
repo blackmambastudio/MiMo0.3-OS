@@ -51,9 +51,9 @@ def init_hardware():
     GPIO.setmode(GPIO.BOARD)
 
     # # Init buttons
-    # for pin in buttons.keys():
-    #     GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    #     GPIO.add_event_detect(pin, GPIO.BOTH, callback=button_callback, bouncetime=10)
+    for pin in buttons.keys():
+        GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.add_event_detect(pin, GPIO.BOTH, callback=button_callback, bouncetime=10)
 
     # # Init button LEDs
     # for pin in button_leds.keys():
