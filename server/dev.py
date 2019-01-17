@@ -64,13 +64,13 @@ def init_hardware():
     #     lcd_screens[k]['instance'] = I2C_LCD_driver.lcd(v['address'])
 
     # Init RGB LEDs
-    for k, v in rgb_leds.items():
-        GPIO.setup(v['pins']['r'], GPIO.OUT)
-        GPIO.setup(v['pins']['g'], GPIO.OUT)
-        GPIO.setup(v['pins']['b'], GPIO.OUT)
+    # for k, v in rgb_leds.items():
+    #     GPIO.setup(v['pins']['r'], GPIO.OUT)
+    #     GPIO.setup(v['pins']['g'], GPIO.OUT)
+    #     GPIO.setup(v['pins']['b'], GPIO.OUT)
 
-        # Clean LEDs
-        rgb_led_switch(k, 1, 1, 1)
+    #     # Clean LEDs
+    #     rgb_led_switch(k, 1, 1, 1)
 
 
 def init_test():
