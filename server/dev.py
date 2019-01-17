@@ -18,6 +18,10 @@ def emit(data):
     socketio.emit('gpio', data)
 
 
+def serial_read(methods=['GET', 'POST']):
+    print('Message received serial')
+
+
 def button_callback(channel):
     print('entra evento channel {0}'.format(str(channel)))
     data = {}
@@ -31,7 +35,7 @@ def button_callback(channel):
             print('on release')
             data = {'action': buttons[channel], 'status': 0}
 
-        socketio.emit('gpio', data)
+        socketio.emit('serial', data, callback=serial_read)
 
 
 def rgb_led_switch(id, r, g, b):
@@ -120,10 +124,6 @@ def messageReceived(methods=['GET', 'POST']):
     print('Message received')
 
 
-def serial_read(methods=['GET', 'POST']):
-    print('Message received serial')
-
-
 @socketio.on('lcd_print')
 def lcd_print(json_data, methods=['GET', 'POST']):
     lcd_id = int(json_data['lcd_id'])
@@ -146,7 +146,7 @@ def lcd_clear(json_data, methods=['GET', 'POST']):
 def handle_serial(json_data, methods=['GET', 'POST']):
     print('Connected from {0}'.format(json_data))
     data = {'message': 'Connected to serial'}
-    socketio.emit('serial', data, callback=serial_read)
+    socketio.emit('connect2pi', data, callback=serial_read)
 
 
 @socketio.on('btn_set_state')
