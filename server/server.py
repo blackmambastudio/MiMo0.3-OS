@@ -37,9 +37,8 @@ def init_hardware():
         GPIO.add_event_detect(pin, GPIO.RISING, callback=button_callback, bouncetime=1000)
 
     # Init lcd screens
-    for pin in lcd_screens.keys():
-        hex_pin = hex(int(pin, 16))
-        lcd_screens[pin] = I2C_LCD_driver.lcd(hex_pin)
+    for k, v in lcd_screens.items():
+        lcd_screens[k]['instance'] = I2C_LCD_driver.lcd(v['address'])
 
 
 def init_test():
