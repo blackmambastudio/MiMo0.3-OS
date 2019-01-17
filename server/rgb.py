@@ -17,9 +17,7 @@ GPIO.output(BLUE, 0)
 
 try:
     while True:
-        GPIO.output(RED, int(1001))
-        GPIO.output(GREEN, int(010))
-        GPIO.output(BLUE, int(001))
+        GPIO.output(RED, int(100))
 
 except KeyboardInterrupt:
     GPIO.cleanup()
