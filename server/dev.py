@@ -3,7 +3,7 @@ from flask import Flask, render_template, request
 from flask_socketio import SocketIO
 
 # MiMo
-from mimo.hardware.io import buttons, button_leds, button_states, lcd_screens
+from mimo.hardware.io import buttons, button_leds, button_state, button_pressed, lcd_screens
 from mimo.utils import I2C_LCD_driver
 
 # GPIO
@@ -19,9 +19,19 @@ def emit(data):
 
 
 def button_callback(channel):
-    print(channel)
-    if button_states[channel]:
-        emit('gpio', {'action': buttons[channel]})
+    print('entra evento channel {0}'.format(str(channel)))
+    data = {}
+    if button_state[channel]:
+        print('button available channel {0} -> {1}'.format(str(channel), str(GPIO.input(channel))))
+        button_pressed[channel] = not button_pressed[channel]
+        if button_pressed[channel]:
+            print('on pressed')
+            data = {'action': buttons[channel], 'status': 1}
+        else:
+            print('on release')
+            data = {'action': buttons[channel], 'status': 0}
+
+        emit(data)
 
 
 def init_hardware():
@@ -30,7 +40,7 @@ def init_hardware():
     # Init buttons
     for pin in buttons.keys():
         GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(pin, GPIO.RISING, callback=button_callback, bouncetime=1000)
+        GPIO.add_event_detect(pin, GPIO.BOTH, callback=button_callback, bouncetime=10)
 
     # Init button LEDs
     for pin in button_leds.keys():
@@ -123,7 +133,7 @@ def btn_set_state(json_data, methods=['GET', 'POST']):
     btn_state = bool(json_data['btn_state'])
 
     # Change button state
-    button_states[btn_id] = btn_state
+    button_state[btn_id] = btn_state
 
 
 @socketio.on('btn_led')

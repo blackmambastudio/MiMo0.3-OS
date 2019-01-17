@@ -21,7 +21,7 @@ buttons[16] = 'BTN_B'
 # buttons[2] = 'BTN_2'
 # buttons[3] = 'BTN_3'
 
-button_states = {
+button_state = {
     10: False,
     11: False,
     12: True,
@@ -34,6 +34,11 @@ button_states = {
     1: False,
     2: False,
     3: False
+}
+
+button_pressed = {
+    12: False,
+    16: False
 }
 
 button_leds = OrderedDict()
