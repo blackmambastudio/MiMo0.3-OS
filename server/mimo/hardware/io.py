@@ -8,12 +8,12 @@ buttons = OrderedDict()
 # buttons[11] = 'BTN_RED'
 
 # Material buttons
-buttons[7] = 'BTN_A'
-buttons[11] = 'BTN_B'
-buttons[13] = 'BTN_C'
-buttons[15] = 'BTN_D'
-buttons[19] = 'BTN_E'
-buttons[21] = 'BTN_F'
+buttons[12] = 'BTN_A'
+buttons[16] = 'BTN_B'
+#buttons[13] = 'BTN_C'
+#buttons[15] = 'BTN_D'
+#buttons[19] = 'BTN_E'
+#buttons[21] = 'BTN_F'
 
 # Optimization buttons
 # buttons[0] = 'BTN_0'
@@ -24,8 +24,8 @@ buttons[21] = 'BTN_F'
 button_states = {
     10: False,
     11: False,
-    12: False,
-    16: False,
+    12: True,
+    16: True,
     18: False,
     22: False,
     32: False,

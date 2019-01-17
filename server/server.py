@@ -3,8 +3,8 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO
 
 # MiMo dependencies
-from mimo.hardware.io import buttons, button_states, lcd_screens
-from mimo.utils import I2C_LCD_driver
+from mimo.hardware.io import buttons, button_states#, lcd_screens
+#from mimo.utils import I2C_LCD_driver
 
 # GPIO dependencies
 import RPi.GPIO as GPIO
@@ -21,11 +21,26 @@ def emit(data):
 def blink_led(led):
     print(led)
 
+button_status = {
+    12: False,
+    16: False
+}
 
 def button_callback(channel):
+    print "entra evento channel " + str(channel)
     if button_states[channel]:
-        emit('gpio', {'button': buttons[channel]})
-        blink_led(channel)
+        print "button available channel " + str(channel) + " -> " + str(GPIO.input(channel))
+        button_status[channel] = not button_status[channel]
+        if button_status[channel]:
+            print 'on pressed'
+            socketio.emit('gpio', {'button': buttons[channel], 'status': 1})
+        else:
+            print 'on release'
+            socketio.emit('gpio', {'button': buttons[channel], 'status': 0})
+        #if GPIO.input(channel):
+        #print "pressed"
+        #socketio.emit('gpio', {'button': buttons[channel]})
+        #blink_led(channel)
 
 
 def init_hardware():
@@ -34,11 +49,11 @@ def init_hardware():
     # Init buttons
     for pin in buttons.keys():
         GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(pin, GPIO.RISING, callback=button_callback, bouncetime=1000)
+        GPIO.add_event_detect(pin, GPIO.BOTH, callback=button_callback, bouncetime=10)
 
     # Init lcd screens
-    for k, v in lcd_screens.items():
-        lcd_screens[k]['instance'] = I2C_LCD_driver.lcd(v['address'])
+    #for k, v in lcd_screens.items():
+    #    lcd_screens[k]['instance'] = I2C_LCD_driver.lcd(v['address'])
 
 
 def init_test():
