@@ -35,7 +35,7 @@ def button_callback(channel):
             print('on release')
             data = {'action': buttons[channel], 'status': 0}
 
-        socketio.emit('serial', data, callback=serial_read)
+        socketio.emit('gpio', data, callback=serial_read)
 
 
 def rgb_led_switch(id, r, g, b):
