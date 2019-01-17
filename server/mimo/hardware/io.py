@@ -8,8 +8,8 @@ buttons = OrderedDict()
 # buttons[11] = 'BTN_RED'
 
 # Material buttons
-buttons[12] = 'BTN_A'
-buttons[16] = 'BTN_B'
+buttons[12] = 'BTN-A'
+buttons[16] = 'BTN-B'
 # buttons[13] = 'BTN_C'
 # buttons[15] = 'BTN_D'
 # buttons[19] = 'BTN_E'
