@@ -23,8 +23,7 @@ def serial_read(methods=['GET', 'POST']):
 
 
 def button_callback(channel):
-    # print('entra evento channel {0}'.format(str(channel)))
-    socketio.emit('hello', {}, callback=serial_read)
+    print('entra evento channel {0}'.format(str(channel)))
 
     data = {}
     if button_state[channel]:
