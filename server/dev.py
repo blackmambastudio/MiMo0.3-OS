@@ -3,7 +3,7 @@ from flask import Flask, render_template, request
 from flask_socketio import SocketIO
 
 # MiMo
-from mimo.hardware.io import buttons, button_leds, button_state, button_pressed, lcd_screens
+from mimo.hardware.io import buttons, button_leds, button_state, button_pressed, lcd_screens, rgb_leds
 from mimo.utils import I2C_LCD_driver
 
 # GPIO
@@ -37,18 +37,24 @@ def button_callback(channel):
 def init_hardware():
     GPIO.setmode(GPIO.BOARD)
 
-    # Init buttons
-    for pin in buttons.keys():
-        GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(pin, GPIO.BOTH, callback=button_callback, bouncetime=10)
+    # # Init buttons
+    # for pin in buttons.keys():
+    #     GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    #     GPIO.add_event_detect(pin, GPIO.BOTH, callback=button_callback, bouncetime=10)
 
-    # Init button LEDs
-    for pin in button_leds.keys():
-        GPIO.setup(pin, GPIO.OUT)
+    # # Init button LEDs
+    # for pin in button_leds.keys():
+    #     GPIO.setup(pin, GPIO.OUT)
 
-    # Init lcd screens
-    for k, v in lcd_screens.items():
-        lcd_screens[k]['instance'] = I2C_LCD_driver.lcd(v['address'])
+    # # Init lcd screens
+    # for k, v in lcd_screens.items():
+    #     lcd_screens[k]['instance'] = I2C_LCD_driver.lcd(v['address'])
+
+    # Init RGB LEDs
+    for k, v in rgb_leds.items():
+        GPIO.setup(v['pins']['r'], GPIO.OUT)
+        GPIO.setup(v['pins']['g'], GPIO.OUT)
+        GPIO.setup(v['pins']['b'], GPIO.OUT)
 
 
 def init_test():
@@ -60,6 +66,16 @@ def init_test():
 
 def lcd_display_message(lcd_id, message, line):
     lcd_screens[lcd_id]['instance'].lcd_display_string(message, line)
+
+
+def rgb_led_switch(id, r, g, b):
+    led = rgb_leds[id]
+    r_pin = led['pins']['r']
+    g_pin = led['pins']['g']
+    b_pin = led['pins']['b']
+    GPIO.output(r_pin, r)
+    GPIO.output(g_pin, g)
+    GPIO.output(b_pin, b)
 
 
 @app.route('/test')
@@ -145,6 +161,16 @@ def btn_led(json_data, methods=['GET', 'POST']):
         GPIO.output(btn_led_id, GPIO.HIGH)
     else:
         GPIO.output(btn_led_id, GPIO.LOW)
+
+
+@socketio.on('rgb_led')
+def rgb_led(json_data, methods=['GET', 'POST']):
+    rgb_id = json_data['id']
+    r = json_data['r']
+    g = json_data['g']
+    b = json_data['b']
+
+    rgb_led_switch(rgb_id, r, g, b)
 
 
 if __name__ == '__main__':

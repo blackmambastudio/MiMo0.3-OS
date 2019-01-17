@@ -64,4 +64,11 @@ lcd_screens[27] = {'address': 0x27, 'instance': None}
 # ON/OFF switches
 switch = 'SWITCH'
 
+# RGB LEDs
 
+rgb_leds = {
+    0: {
+            'pins': {'r': 16, 'g': 18, 'b': 22},
+            'status': [1, 1, 1]
+        }
+}
