@@ -49,9 +49,6 @@ def rgb_led_switch(id, r, g, b):
 
 
 def init_hardware():
-    # Clean GPIO
-    GPIO.cleanup()
-
     GPIO.setmode(GPIO.BOARD)
 
     # # Init buttons
@@ -145,7 +142,7 @@ def lcd_clear(json_data, methods=['GET', 'POST']):
 @socketio.on('connect2pi')
 def handle_serial(json_data, methods=['GET', 'POST']):
     print('Connected from {0}'.format(json_data))
-    data = {'message': 'Connected to serial'}
+    data = {'message': 'Connected to MiMo console'}
     socketio.emit('connect2pi', data, callback=serial_read)
 
 
