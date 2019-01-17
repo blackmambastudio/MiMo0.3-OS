@@ -18,9 +18,14 @@ def emit(data):
     socketio.emit('gpio', data, callback=serial_read)
 
 
+def blink_led(led):
+    print(led)
+
+
 def button_callback(channel):
     if button_states[channel]:
         emit('gpio', {'button': buttons[channel]})
+        blink_led(channel)
 
 
 def init_hardware():
