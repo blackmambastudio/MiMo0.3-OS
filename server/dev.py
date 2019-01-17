@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO
 
-from mimo.hardware.io import buttons
+from mimo.hardware.io import lcd_screens
+from mimo.utils import I2C_LCD_driver
 
 
 app = Flask(__name__)
@@ -21,6 +22,13 @@ def init_test():
             socketio.sleep(1)
         break
     return
+
+def init_hardware():
+    for k, v in lcd_screens.items():
+        lcd_screens[k]['instance'] = I2C_LCD_driver.lcd(lcd_screens[k]['address'])
+
+def lcd_display_message(lcd_id, message, line):
+    lcd_screens[lcd_id]['instance'].lcd_display_string(message, line)
 
 
 @app.route('/test')
@@ -62,6 +70,21 @@ def messageReceived(methods=['GET', 'POST']):
 def serial_read(methods=['GET', 'POST']):
     print('Message received serial')
 
+@socketio.on('lcd_print')
+def lcd_print(json_data, methods=['GET', 'POST']):
+    lcd_id = int(json_data['lcd_id'])
+    message = json_data['message']
+    line = int(json_data['line'])
+
+    # Print to lcd screen
+    lcd_display_message(lcd_id, message, line)
+
+@socketio.on('lcd_clear')
+def lcd_clear(json_data, methods=['GET', 'POST']):
+    lcd_id = int(json_data['lcd_id'])
+    
+    # Clear LCD screen
+    lcd_screens[lcd_id]['instance'].lcd_clear()
 
 @socketio.on('connect2pi')
 def handle_serial(json_data, methods=['GET', 'POST']):
@@ -71,4 +94,5 @@ def handle_serial(json_data, methods=['GET', 'POST']):
 
 
 if __name__ == '__main__':
+    init_hardware()
     socketio.run(app, host='0.0.0.0', port='8000', debug=True)
