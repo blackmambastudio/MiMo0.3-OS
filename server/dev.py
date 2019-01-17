@@ -144,7 +144,7 @@ def lcd_clear(json_data, methods=['GET', 'POST']):
 @socketio.on('hello')
 def handle_event(json, methods=['GET', 'POST']):
     print('Received event: {0}'.format(json))
-    socketio.emit('gpio', {'action': 12, 'status': 1}, callback=messageReceived)
+    socketio.emit('hello', {'action': 12, 'status': 1}, callback=messageReceived)
 
 
 @socketio.on('connect2pi')
