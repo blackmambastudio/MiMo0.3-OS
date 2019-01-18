@@ -1,9 +1,9 @@
 from __future__ import print_function
 
 from .utils.Adafruit_Thermal import *
+import HTMLParser
 import RPi.GPIO as IO
 from unidecode import unidecode
-from html.parser import HTMLParser
 
 
 # Initialize printer
