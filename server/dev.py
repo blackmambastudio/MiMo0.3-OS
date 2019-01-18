@@ -54,8 +54,8 @@ def init_hardware():
         GPIO.add_event_detect(pin, GPIO.BOTH, callback=button_callback, bouncetime=10)
 
     # # Init button LEDs
-    # for pin in button_leds.keys():
-    #     GPIO.setup(pin, GPIO.OUT)
+    for pin in button_leds.keys():
+        GPIO.setup(pin, GPIO.OUT)
 
     # # Init lcd screens
     # for k, v in lcd_screens.items():

@@ -8,48 +8,46 @@ buttons = OrderedDict()
 # buttons[11] = 'BTN_RED'
 
 # Material buttons
-buttons[12] = 'BTN-0'
-buttons[16] = 'BTN-1'
-# buttons[13] = 'BTN_C'
-# buttons[15] = 'BTN_D'
-# buttons[19] = 'BTN_E'
-# buttons[21] = 'BTN_F'
+buttons[12] = 'BTN-A'
+buttons[16] = 'BTN-B'
+buttons[18] = 'BTN-C'
+buttons[22] = 'BTN-D'
+buttons[24] = 'BTN-E'
+buttons[26] = 'BTN-F'
 
 # Optimization buttons
-# buttons[0] = 'BTN_0'
-# buttons[1] = 'BTN_1'
-# buttons[2] = 'BTN_2'
-# buttons[3] = 'BTN_3'
+# buttons[0] = 'BTN-0'
+# buttons[1] = 'BTN-1'
+# buttons[2] = 'BTN-2'
+# buttons[3] = 'BTN-3'
 
 button_state = {
-    10: False,
-    11: False,
     12: True,
     16: True,
-    18: False,
-    22: False,
-    32: False,
-    36: False,
-    0: False,
-    1: False,
-    2: False,
-    3: False
+    18: True,
+    22: True,
+    24: True,
+    26: True
 }
 
 button_pressed = {
     12: False,
-    16: False
+    16: False,
+    18: False,
+    22: False,
+    24: False,
+    26: False
 }
 
 button_leds = OrderedDict()
 
 # Material buttons LEDs
-button_leds[29] = 'BTN_A'
-button_leds[31] = 'BTN_B'
-button_leds[33] = 'BTN_C'
-button_leds[35] = 'BTN_D'
-button_leds[37] = 'BTN_E'
-button_leds[27] = 'BTN_F'
+button_leds[27] = 'BTN-A'
+button_leds[29] = 'BTN-B'
+button_leds[31] = 'BTN-C'
+button_leds[33] = 'BTN-D'
+button_leds[35] = 'BTN-E'
+button_leds[37] = 'BTN-F'
 
 
 # LCD screens ordered dictionary
