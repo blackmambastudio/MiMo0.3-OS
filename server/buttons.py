@@ -11,12 +11,12 @@ GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-GPIO.setup(12, GPIO.OUT)
-GPIO.setup(16, GPIO.OUT)
-GPIO.setup(18, GPIO.OUT)
-GPIO.setup(22, GPIO.OUT)
-GPIO.setup(24, GPIO.OUT)
-GPIO.setup(26, GPIO.OUT)
+GPIO.setup(27, GPIO.OUT)
+GPIO.setup(29, GPIO.OUT)
+GPIO.setup(31, GPIO.OUT)
+GPIO.setup(33, GPIO.OUT)
+GPIO.setup(35, GPIO.OUT)
+GPIO.setup(37, GPIO.OUT)
 
 buttons = OrderedDict()
 buttons[12] = {'msg': 'BTN-A', 'state': True}
@@ -28,6 +28,7 @@ buttons[26] = {'msg': 'BTN-F', 'state': True}
 
 
 while True:
+    time.sleep(0.5)
     if GPIO.input(12) == GPIO.HIGH:
         print(12)
         if buttons[12]['state']:
