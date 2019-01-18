@@ -50,6 +50,17 @@ button_leds[35] = 'BTN-E'
 button_leds[37] = 'BTN-F'
 
 
+button_leds_code = OrderedDict()
+
+# Material buttons LEDs
+# button_leds[12] = 'BTN-A'
+button_leds_code[16] = 29
+button_leds_code[18] = 31
+button_leds_code[22] = 33
+button_leds_code[24] = 35
+button_leds_code[26] = 37
+
+
 # LCD screens ordered dictionary
 lcd_screens = OrderedDict()
 lcd_screens[22] = {'address': 0x22, 'instance': None}

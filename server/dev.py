@@ -3,7 +3,7 @@ from flask import Flask, render_template, request
 from flask_socketio import SocketIO
 
 # MiMo
-from mimo.hardware.io import buttons, button_leds, button_state, button_pressed, lcd_screens, rgb_leds
+from mimo.hardware.io import buttons, button_leds, button_leds_code, button_state, button_pressed, lcd_screens, rgb_leds
 from mimo.utils import I2C_LCD_driver
 
 # GPIO
@@ -25,19 +25,21 @@ def serial_read(methods=['GET', 'POST']):
 def button_callback(channel):
     print('entra evento channel {0}'.format(str(channel)))
 
-    data = {}
-    lecture = GPIO.input(channel)
-    print(channel, lecture, button_pressed[channel])
-    if (not button_pressed[channel]) and lecture:
-        print("onpressed", channel)
-        button_pressed[channel] = True
-        data = {'action': buttons[channel], 'status': button_pressed[channel]}
-        socketio.emit('gpio', data, callback=serial_read)
-    elif button_pressed[channel] and (not lecture):
-        print("onrelease", channel)
-        button_pressed[channel] = False
-        data = {'action': buttons[channel], 'status': button_pressed[channel]}
-        socketio.emit('gpio', data, callback=serial_read)
+    GPIO.output(button_leds_code[channel], GPIO.HIGH)
+
+    # data = {}
+    # lecture = GPIO.input(channel)
+    # print(channel, lecture, button_pressed[channel])
+    # if (not button_pressed[channel]) and lecture:
+    #     print("onpressed", channel)
+    #     button_pressed[channel] = True
+    #     data = {'action': buttons[channel], 'status': button_pressed[channel]}
+    #     socketio.emit('gpio', data, callback=serial_read)
+    # elif button_pressed[channel] and (not lecture):
+    #     print("onrelease", channel)
+    #     button_pressed[channel] = False
+    #     data = {'action': buttons[channel], 'status': button_pressed[channel]}
+    #     socketio.emit('gpio', data, callback=serial_read)
 
 
 def rgb_led_switch(id, r, g, b):
