@@ -27,12 +27,14 @@ def button_callback(channel):
 
     data = {}
     if GPIO.input(channel):
-        if button_state[channel]:
+        if (not button_pressed[channel]) and button_state[channel]:
             # print('button available channel {0} -> {1}'.format(str(channel), str(GPIO.input(channel))))
-            button_pressed[channel] = not button_pressed[channel]
-
+            button_pressed[channel] = True
             data = {'action': buttons[channel], 'status': button_pressed[channel]}
-
+            socketio.emit('gpio', data, callback=serial_read)
+        elif button_pressed[channel] and (not button_state[channel]):
+            button_pressed[channel] = False
+            data = {'action': buttons[channel], 'status': button_pressed[channel]}
             socketio.emit('gpio', data, callback=serial_read)
 
 
