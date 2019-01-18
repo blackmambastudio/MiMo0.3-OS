@@ -1,9 +1,10 @@
 from __future__ import print_function
 
-from utils.Adafruit_Thermal import *
-import HTMLParser
+from .utils.Adafruit_Thermal import *
 import RPi.GPIO as IO
 from unidecode import unidecode
+from html.parser import HTMLParser
+
 
 # Initialize printer
 printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
