@@ -169,14 +169,9 @@ def btn_reset(json_data, methods=['GET', 'POST']):
 def btn_led(json_data, methods=['GET', 'POST']):
     btn_led_id = int(json_data['btn_led_id'])
     btn_led_state = json_data['btn_led_state']
-    print(json_data)
-    print(btn_led_state)
-    print(type(btn_led_state))
     if btn_led_state:
-        print('if')
         GPIO.output(btn_led_id, GPIO.HIGH)
     else:
-        print('else')
         GPIO.output(btn_led_id, GPIO.LOW)
 
 
