@@ -42,7 +42,7 @@ button_pressed = {
 button_leds = OrderedDict()
 
 # Material buttons LEDs
-# button_leds[27] = 'BTN-A'
+button_leds[15] = 'BTN-A'
 button_leds[29] = 'BTN-B'
 button_leds[31] = 'BTN-C'
 button_leds[33] = 'BTN-D'
