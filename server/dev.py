@@ -62,8 +62,8 @@ def init_hardware():
         GPIO.setup(pin, GPIO.OUT)
 
     # # Init lcd screens
-    # for k, v in lcd_screens.items():
-    #     lcd_screens[k]['instance'] = I2C_LCD_driver.lcd(v['address'])
+    for k, v in lcd_screens.items():
+        lcd_screens[k]['instance'] = I2C_LCD_driver.lcd(v['address'])
 
     # Init RGB LEDs
     # for k, v in rgb_leds.items():
