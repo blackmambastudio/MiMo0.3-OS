@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 from collections import OrderedDict
+import requests
 
 GPIO.setmode(GPIO.BOARD)
 
