@@ -158,6 +158,12 @@ def btn_set_state(json_data, methods=['GET', 'POST']):
     button_state[btn_id] = btn_state
 
 
+@socketio.on('btn_reset')
+def btn_reset(json_data, methods=['GET', 'POST']):
+    for k, v in button_pressed.items():
+        button_pressed[k] = False
+
+
 @socketio.on('btn_led')
 def btn_led(json_data, methods=['GET', 'POST']):
     btn_led_id = int(json_data['btn_led_id'])
