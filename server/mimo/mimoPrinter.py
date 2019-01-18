@@ -79,3 +79,14 @@ def mimo_print(data):
     printer.feed(6)
 
     # IO.cleanup()
+
+if __name__ == '__main__':
+    while True:
+        mimo_setup()
+        cable = {
+                'user': 'MiMo Console',
+                'date': 'Oct 30  1982',
+                'text': '>> INCOMING EVENT <<\n\nTHE PRESIDENTIAL CANDIDATE FULANO SAYS HE WILL ALWAYS SUPPORT TELMAR AS LONG AS THAT DOESN\'T JEOPARDIZE OUR RELATIONSHIP WITH HUNAGARA\'S GOVERMENT.'
+        }
+        mimo_print(cable)
+        IO.cleanup()
