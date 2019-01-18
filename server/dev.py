@@ -26,13 +26,14 @@ def button_callback(channel):
     print('entra evento channel {0}'.format(str(channel)))
 
     data = {}
-    if button_state[channel]:
-        # print('button available channel {0} -> {1}'.format(str(channel), str(GPIO.input(channel))))
-        button_pressed[channel] = not button_pressed[channel]
+    if GPIO.input(channel):
+        if button_state[channel]:
+            # print('button available channel {0} -> {1}'.format(str(channel), str(GPIO.input(channel))))
+            button_pressed[channel] = not button_pressed[channel]
 
-        data = {'action': buttons[channel], 'status': button_pressed[channel]}
+            data = {'action': buttons[channel], 'status': button_pressed[channel]}
 
-        socketio.emit('gpio', data, callback=serial_read)
+            socketio.emit('gpio', data, callback=serial_read)
 
 
 def rgb_led_switch(id, r, g, b):
@@ -167,7 +168,6 @@ def btn_reset(json_data, methods=['GET', 'POST']):
 
 @socketio.on('btn_led')
 def btn_led(json_data, methods=['GET', 'POST']):
-    print(json_data)
     btn_led_id = int(json_data['btn_led_id'])
     btn_led_state = json_data['btn_led_state']
     if btn_led_state:
@@ -191,6 +191,6 @@ def rgb_led(json_data, methods=['GET', 'POST']):
 if __name__ == '__main__':
     try:
         init_hardware()
-        socketio.run(app, host='0.0.0.0', port='8000', debug=True)
+        socketio.run(app, host='0.0.0.0', port='8000', debug=False)
     except KeyboardInterrupt:
         GPIO.cleanup()
