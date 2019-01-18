@@ -11,7 +11,7 @@ printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
 
 
 def mimo_printer_init():
-    title = 'Weolcome to MiMo v4'
+    title = 'Welcome to MiMo v4'
     subtitle = 'Latest news from MiMo feed'
     author = 'MiMo Team'
 
