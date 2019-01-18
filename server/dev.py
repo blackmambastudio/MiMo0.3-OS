@@ -55,6 +55,7 @@ def init_hardware():
 
     # # Init button LEDs
     for pin in button_leds.keys():
+        print(pin)
         GPIO.setup(pin, GPIO.OUT)
 
     # # Init lcd screens
