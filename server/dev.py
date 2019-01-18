@@ -5,6 +5,7 @@ from flask_socketio import SocketIO
 # MiMo
 from mimo.hardware.io import buttons, button_leds, button_leds_code, button_state, button_pressed, lcd_screens, rgb_leds
 from mimo.utils import I2C_LCD_driver
+from mimo.mimoPrinter import mimo_printer_init, mimo_print
 
 # GPIO
 import RPi.GPIO as GPIO
@@ -52,18 +53,21 @@ def rgb_led_switch(id, r, g, b):
 def init_hardware():
     GPIO.setmode(GPIO.BOARD)
 
-    # # Init buttons
+    # Init buttons
     for pin in buttons.keys():
         GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.add_event_detect(pin, GPIO.BOTH, callback=button_callback, bouncetime=10)
 
-    # # Init button LEDs
+    # Init button LEDs
     for pin in button_leds.keys():
         GPIO.setup(pin, GPIO.OUT)
 
-    # # Init lcd screens
+    # Init lcd screens
     for k, v in lcd_screens.items():
         lcd_screens[k]['instance'] = I2C_LCD_driver.lcd(v['address'])
+
+    # Init Printer
+    mimo_printer_init()
 
     # Init RGB LEDs
     # for k, v in rgb_leds.items():
@@ -190,6 +194,13 @@ def rgb_led(json_data, methods=['GET', 'POST']):
     print(json_data)
 
     rgb_led_switch(rgb_id, r, g, b)
+
+
+@socketio.on('printer')
+def printer(json_data, methods=['GET', 'POST']):
+    print('Will print: ')
+    print(json_data)
+    mimo_print(json_data)
 
 
 if __name__ == '__main__':

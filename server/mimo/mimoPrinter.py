@@ -9,13 +9,13 @@ from unidecode import unidecode
 printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
 
 
-def mimo_init():
-    title = 'Weolcome to MiMo v3'
+def mimo_printer_init():
+    title = 'Weolcome to MiMo v4'
     subtitle = 'Latest news from MiMo feed'
     author = 'MiMo Team'
 
     # Initialize printer
-    # printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
+    printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
 
     # Print welcome message
     printer.print(unidecode(
@@ -79,7 +79,7 @@ def mimo_print(data):
 
     printer.feed(6)
 
-    IO.cleanup()
+    # IO.cleanup()
 
 
 if __name__ == '__main__':
