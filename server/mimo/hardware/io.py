@@ -47,7 +47,7 @@ button_leds[29] = 'BTN-B'
 button_leds[31] = 'BTN-C'
 button_leds[33] = 'BTN-D'
 button_leds[35] = 'BTN-E'
-button_leds[37] = 'BTN-F'
+button_leds[13] = 'BTN-F'
 
 
 button_leds_code = OrderedDict()
