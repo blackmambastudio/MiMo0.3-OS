@@ -29,11 +29,12 @@ def button_callback(channel):
     lecture = GPIO.input(channel)
     print(channel, lecture, button_pressed[channel])
     if (not button_pressed[channel]) and lecture:
-        # print('button available channel {0} -> {1}'.format(str(channel), str(GPIO.input(channel))))
+        print("onpressed", channel)
         button_pressed[channel] = True
         data = {'action': buttons[channel], 'status': button_pressed[channel]}
         socketio.emit('gpio', data, callback=serial_read)
     elif button_pressed[channel] and (not lecture):
+        print("onrelease", channel)
         button_pressed[channel] = False
         data = {'action': buttons[channel], 'status': button_pressed[channel]}
         socketio.emit('gpio', data, callback=serial_read)
