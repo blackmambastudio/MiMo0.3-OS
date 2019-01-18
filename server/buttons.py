@@ -41,17 +41,21 @@ try:
             print('22')
             GPIO.output(33, GPIO.HIGH)
             buttons[22]['state'] = False
+            r = requests.get('http://localhost:8000/gpio/?action=BTN-D&status=true')
         elif not(GPIO.input(22) == GPIO.HIGH and buttons[22]['state']):
             GPIO.output(33, GPIO.LOW)
             buttons[22]['state'] = True
+            r = requests.get('http://localhost:8000/gpio/?action=BTN-D&status=false')
 
         if GPIO.input(24) == GPIO.HIGH and buttons[24]['state']:
             print('24')
             GPIO.output(35, GPIO.HIGH)
             buttons[24]['state'] = False
+            r = requests.get('http://localhost:8000/gpio/?action=BTN-E&status=true')
         elif not(GPIO.input(24) == GPIO.HIGH and buttons[24]['state']):
             GPIO.output(35, GPIO.LOW)
             buttons[24]['state'] = True
+            r = requests.get('http://localhost:8000/gpio/?action=BTN-E&status=false')
 
         if GPIO.input(26) == GPIO.HIGH and buttons[26]['state']:
             print('26')
