@@ -167,6 +167,7 @@ def btn_reset(json_data, methods=['GET', 'POST']):
 
 @socketio.on('btn_led')
 def btn_led(json_data, methods=['GET', 'POST']):
+    print(json_data)
     btn_led_id = int(json_data['btn_led_id'])
     btn_led_state = json_data['btn_led_state']
     if btn_led_state:
