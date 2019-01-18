@@ -37,6 +37,14 @@ try:
             GPIO.output(29, GPIO.LOW)
             buttons[16]['state'] = True
 
+        if GPIO.input(22) == GPIO.HIGH and buttons[22]['state']:
+            print('24')
+            GPIO.output(33, GPIO.HIGH)
+            buttons[22]['state'] = False
+        elif not(GPIO.input(22) == GPIO.HIGH and buttons[22]['state']):
+            GPIO.output(33, GPIO.LOW)
+            buttons[22]['state'] = True
+
         if GPIO.input(24) == GPIO.HIGH and buttons[24]['state']:
             print('24')
             GPIO.output(35, GPIO.HIGH)
