@@ -30,13 +30,21 @@ buttons[26] = {'msg': 'BTN-F', 'state': True}
 while True:
     time.sleep(0.5)
 
-    print(GPIO.input(16))
     if GPIO.input(16) == GPIO.HIGH and buttons[16]['state']:
+        print('16')
         GPIO.output(29, GPIO.HIGH)
         buttons[16]['state'] = False
     elif not(GPIO.input(16) == GPIO.HIGH and buttons[16]['state']):
         GPIO.output(29, GPIO.LOW)
         buttons[16]['state'] = True
+
+    if GPIO.input(24) == GPIO.HIGH and buttons[24]['state']:
+        print('24')
+        GPIO.output(35, GPIO.HIGH)
+        buttons[24]['state'] = False
+    elif not(GPIO.input(24) == GPIO.HIGH and buttons[24]['state']):
+        GPIO.output(35, GPIO.LOW)
+        buttons[24]['state'] = True
 
     # if GPIO.input(18) == GPIO.HIGH:
     #     print(18)
