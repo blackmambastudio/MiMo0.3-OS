@@ -27,7 +27,7 @@ def button_callback(channel):
 
     data = {}
     if GPIO.input(channel):
-        print(channel, button_state[channel])
+        print(channel, button_state[channel], button_pressed[channel])
         if (not button_pressed[channel]) and button_state[channel]:
             # print('button available channel {0} -> {1}'.format(str(channel), str(GPIO.input(channel))))
             button_pressed[channel] = True
