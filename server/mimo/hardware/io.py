@@ -64,10 +64,10 @@ button_leds_code[26] = 37
 # LCD screens ordered dictionary
 lcd_screens = OrderedDict()
 lcd_screens[22] = {'address': 0x22, 'instance': None}
-lcd_screens[23] = {'address': 0x23, 'instance': None}
+lcd_screens[23] = {'address': 0x26, 'instance': None}
 lcd_screens[24] = {'address': 0x24, 'instance': None}
 lcd_screens[25] = {'address': 0x25, 'instance': None}
-lcd_screens[26] = {'address': 0x26, 'instance': None}
+lcd_screens[26] = {'address': 0x23, 'instance': None}
 lcd_screens[27] = {'address': 0x27, 'instance': None}
 
 # ON/OFF switches
