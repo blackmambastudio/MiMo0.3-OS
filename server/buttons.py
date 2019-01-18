@@ -25,14 +25,50 @@ while True:
     time.sleep(1)
     if GPIO.input(12) == GPIO.HIGH:
         print(12)
-        if 
+        if buttons[12]['state']:
+            GPIO.output(12, GPIO.HIGH)
+            buttons[12]['state'] = False
+        else:
+            GPIO.output(12, GPIO.LOW)
+            buttons[12]['state'] = True
+
     if GPIO.input(16) == GPIO.HIGH:
         print(16)
+        if buttons[16]['state']:
+            GPIO.output(16, GPIO.HIGH)
+            buttons[16]['state'] = False
+        else:
+            GPIO.output(16, GPIO.LOW)
+            buttons[16]['state'] = True
     if GPIO.input(18) == GPIO.HIGH:
         print(18)
+        if buttons[18]['state']:
+            GPIO.output(18, GPIO.HIGH)
+            buttons[18]['state'] = False
+        else:
+            GPIO.output(18, GPIO.LOW)
+            buttons[18]['state'] = True
     if GPIO.input(22) == GPIO.HIGH:
         print(22)
+        if buttons[22]['state']:
+            GPIO.output(22, GPIO.HIGH)
+            buttons[22]['state'] = False
+        else:
+            GPIO.output(22, GPIO.LOW)
+            buttons[22]['state'] = True
     if GPIO.input(24) == GPIO.HIGH:
         print(24)
+        if buttons[24]['state']:
+            GPIO.output(24, GPIO.HIGH)
+            buttons[24]['state'] = False
+        else:
+            GPIO.output(24, GPIO.LOW)
+            buttons[24]['state'] = True
     if GPIO.input(26) == GPIO.HIGH:
         print(26)
+        if buttons[26]['state']:
+            GPIO.output(26, GPIO.HIGH)
+            buttons[26]['state'] = False
+        else:
+            GPIO.output(26, GPIO.LOW)
+            buttons[26]['state'] = True
