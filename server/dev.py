@@ -191,6 +191,6 @@ def rgb_led(json_data, methods=['GET', 'POST']):
 if __name__ == '__main__':
     try:
         init_hardware()
-        socketio.run(app, host='0.0.0.0', port='8000', debug=False)
+        socketio.run(app, host='0.0.0.0', port='8000', debug=True, log_output=False)
     except KeyboardInterrupt:
         GPIO.cleanup()
