@@ -7,7 +7,7 @@ from unidecode import unidecode
 
 
 # Initialize printer
-printer = Adafruit_Thermal("/dev/serial1", 19200, timeout=5)
+printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
 
 
 def mimo_printer_init():
@@ -16,7 +16,7 @@ def mimo_printer_init():
     author = 'MiMo Team'
 
     # Initialize printer
-    printer = Adafruit_Thermal("/dev/serial1", 19200, timeout=5)
+    printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
 
     # Print welcome message
     printer.print(unidecode(
