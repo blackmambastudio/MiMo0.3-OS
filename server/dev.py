@@ -27,6 +27,7 @@ def button_callback(channel):
 
     data = {}
     if GPIO.input(channel):
+        print(channel, button_state[channel])
         if (not button_pressed[channel]) and button_state[channel]:
             # print('button available channel {0} -> {1}'.format(str(channel), str(GPIO.input(channel))))
             button_pressed[channel] = True
@@ -58,7 +59,6 @@ def init_hardware():
 
     # # Init button LEDs
     for pin in button_leds.keys():
-        print(pin)
         GPIO.setup(pin, GPIO.OUT)
 
     # # Init lcd screens
