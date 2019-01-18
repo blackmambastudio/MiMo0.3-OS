@@ -51,7 +51,11 @@ def rgb_led_switch(id, r, g, b):
 
 
 def init_hardware():
+
     GPIO.setmode(GPIO.BOARD)
+
+    # Init Printer
+    mimo_printer_init()
 
     # Init buttons
     for pin in buttons.keys():
@@ -65,9 +69,6 @@ def init_hardware():
     # Init lcd screens
     for k, v in lcd_screens.items():
         lcd_screens[k]['instance'] = I2C_LCD_driver.lcd(v['address'])
-
-    # Init Printer
-    mimo_printer_init()
 
     # Init RGB LEDs
     # for k, v in rgb_leds.items():

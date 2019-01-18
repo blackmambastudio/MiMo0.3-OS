@@ -41,13 +41,11 @@ def mimo_printer_init():
     printer.feed(1)
 
     printer.print(unidecode(
-            HTMLParser.HTMLParser().unescape('2018')
+            HTMLParser.HTMLParser().unescape('2019')
         )
     )
 
     printer.feed(4)
-
-    IO.cleanup()
 
 
 def mimo_setup():
