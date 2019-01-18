@@ -25,21 +25,19 @@ def serial_read(methods=['GET', 'POST']):
 def button_callback(channel):
     print('entra evento channel {0}'.format(str(channel)))
 
-    GPIO.output(button_leds_code[channel], GPIO.HIGH)
-
-    # data = {}
-    # lecture = GPIO.input(channel)
-    # print(channel, lecture, button_pressed[channel])
-    # if (not button_pressed[channel]) and lecture:
-    #     print("onpressed", channel)
-    #     button_pressed[channel] = True
-    #     data = {'action': buttons[channel], 'status': button_pressed[channel]}
-    #     socketio.emit('gpio', data, callback=serial_read)
-    # elif button_pressed[channel] and (not lecture):
-    #     print("onrelease", channel)
-    #     button_pressed[channel] = False
-    #     data = {'action': buttons[channel], 'status': button_pressed[channel]}
-    #     socketio.emit('gpio', data, callback=serial_read)
+    data = {}
+    lecture = GPIO.input(channel)
+    print(channel, lecture, button_pressed[channel])
+    if (not button_pressed[channel]) and lecture:
+        print("onpressed", channel)
+        button_pressed[channel] = True
+        data = {'action': buttons[channel], 'status': button_pressed[channel]}
+        socketio.emit('gpio', data, callback=serial_read)
+    elif button_pressed[channel] and (not lecture):
+        print("onrelease", channel)
+        button_pressed[channel] = False
+        data = {'action': buttons[channel], 'status': button_pressed[channel]}
+        socketio.emit('gpio', data, callback=serial_read)
 
 
 def rgb_led_switch(id, r, g, b):
