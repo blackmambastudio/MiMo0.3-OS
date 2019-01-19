@@ -76,7 +76,7 @@ def mimo_print(data):
         )
     )
 
-    printer.feed(6)
+    printer.feed(3)
 
     # IO.cleanup()
 

@@ -24,17 +24,17 @@ def serial_read(methods=['GET', 'POST']):
 
 
 def button_callback(channel):
-    print('entra evento channel {0}'.format(str(channel)))
+    #print('entra evento channel {0}'.format(str(channel)))
 
     data = {}
-    print(channel, button_pressed[channel])
+    #print(channel, button_pressed[channel])
     if (not button_pressed[channel]):
-        print("onpressed", channel)
+        #print("onpressed", channel)
         button_pressed[channel] = True
         data = {'action': buttons[channel], 'status': button_pressed[channel]}
         socketio.emit('gpio', data, callback=serial_read)
     elif button_pressed[channel]:
-        print("onrelease", channel)
+        #print("onrelease", channel)
         button_pressed[channel] = False
         data = {'action': buttons[channel], 'status': button_pressed[channel]}
         socketio.emit('gpio', data, callback=serial_read)
@@ -207,6 +207,6 @@ def printer(json_data, methods=['GET', 'POST']):
 if __name__ == '__main__':
     try:
         init_hardware()
-        socketio.run(app, host='0.0.0.0', port='8000', debug=True, log_output=False)
+        socketio.run(app, host='0.0.0.0', port='8000', debug=False, log_output=False)
     except KeyboardInterrupt:
         GPIO.cleanup()
